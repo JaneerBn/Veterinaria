@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Mascota</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2>Registro de Cliente y Mascota</h2>
+    <form method="POST" action="php/procesar.php">
+        <label>Nombre del dueño:</label>
+        <input type="text" name="owner" required>
+        <label>Nombre de la mascota:</label>
+        <input type="text" name="pet_name" required>
+        <label>Tipo de mascota:</label>
+        <select name="pet_type" required>
+            <option value="Perro">Perro</option>
+            <option value="Gato">Gato</option>
+            <option value="Ave">Ave</option>
+            <option value="Roedor">Roedor</option>
+            <option value="Reptil">Reptil</option>
+        </select>
+        <label>Número de servicios adicionales:</label>
+        <input type="number" name="services_count" min="0" required>
+        <button type="submit">Siguiente</button>
+    </form>
+</body>
+</html>
