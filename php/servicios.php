@@ -14,7 +14,7 @@ if (!isset($_SESSION['owner']) || !isset($_SESSION['pet_name']) || !isset($_SESS
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Servicios Adicionales</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
     <h1>Registro de Servicios Adicionales</h1>
