@@ -137,3 +137,10 @@ button {
 button:hover {
     background-color: #218838;
 }
+
+
+.logo {
+    display: block;
+    margin: 0 auto;
+    width: 150px;  /* Ajusta el tamaño según sea necesario */
+}

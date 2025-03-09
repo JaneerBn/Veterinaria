@@ -17,7 +17,10 @@ if (!isset($_SESSION['owner']) || !isset($_SESSION['pet_name']) || !isset($_SESS
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+<img src="../img/Logo_Sniffing Love.png" alt="Logo de Sniffing Love" class="logo">
+
     <h1>Registro de Servicios Adicionales</h1>
+
     <p><strong>Cliente:</strong> <?php echo htmlspecialchars($_SESSION['owner']); ?></p>
     <p><strong>Mascota:</strong> <?php echo htmlspecialchars($_SESSION['pet_name']); ?></p>
     <p><strong>Tipo de Mascota:</strong> <?php echo htmlspecialchars($_SESSION['pet_type']); ?></p>

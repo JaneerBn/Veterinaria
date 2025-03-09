@@ -46,9 +46,11 @@ $total = $subtotal + $iva;
 </head>
 <body>
     <div class="factura-container">
+    <img src="../img/Logo_Sniffing Love.png" alt="Logo de Sniffing Love" class="logo">
+
         <h1>Sniffing Love</h1>
         <h2>Factura de Servicios</h2>
-        
+
         <div class="factura-datos">
             <p><strong>Cliente:</strong> <?php echo $_SESSION['owner']; ?></p>
             <p><strong>Mascota:</strong> <?php echo $_SESSION['pet_name']; ?></p>
