@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['owner']) || !isset($_SESSION['pet_name']) || !isset($_SESSION['pet_type']) || !isset($_POST['service_cost'])) {
+    echo "Error: No hay datos suficientes. <a href='index.html'>Volver al inicio</a>";
+    exit();
+}
+
+// Definir costos base según el tipo de mascota
 $costos_base = [
     "Perro" => 40000,
     "Gato" => 35000,
@@ -7,21 +14,28 @@ $costos_base = [
     "Roedor" => 25000,
     "Reptil" => 50000
 ];
+
 $base = $costos_base[$_SESSION['pet_type']];
-$servicios_total = array_sum($_POST['service_cost']);
+$servicios_total = array_sum($_POST['service_cost']); // Sumar los costos de los servicios
+
+// Calcular descuento según cantidad de servicios
 $descuento = 0;
-if ($_SESSION['services_count'] >= 3 && $_SESSION['services_count'] <= 5) {
+$cantidad_servicios = count($_POST['service_cost']);
+
+if ($cantidad_servicios >= 3 && $cantidad_servicios <= 5) {
     $descuento = 0.05;
-} elseif ($_SESSION['services_count'] >= 6 && $_SESSION['services_count'] <= 8) {
+} elseif ($cantidad_servicios >= 6 && $cantidad_servicios <= 8) {
     $descuento = 0.10;
-} elseif ($_SESSION['services_count'] > 8) {
+} elseif ($cantidad_servicios > 8) {
     $descuento = 0.15;
 }
-$descuento = $servicios_total * $descuento;
-$subtotal = $base + $servicios_total - $descuento;
+
+$descuento_total = $servicios_total * $descuento;
+$subtotal = $base + $servicios_total - $descuento_total;
 $iva = $subtotal * 0.19;
 $total = $subtotal + $iva;
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,14 +45,46 @@ $total = $subtotal + $iva;
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h2>Factura</h2>
-    <p>Cliente: <?php echo $_SESSION['owner']; ?></p>
-    <p>Mascota: <?php echo $_SESSION['pet_name']; ?></p>
-    <p>Tipo de mascota: <?php echo $_SESSION['pet_type']; ?></p>
-    <p>Costo base: $<?php echo number_format($base, 2); ?></p>
-    <p>Costo total de servicios: $<?php echo number_format($servicios_total, 2); ?></p>
-    <p>Descuento: -$<?php echo number_format($descuento, 2); ?></p>
-    <p>IVA (19%): $<?php echo number_format($iva, 2); ?></p>
-    <h3>Total a pagar: $<?php echo number_format($total, 2); ?></h3>
+    <div class="factura-container">
+        <h1>Sniffing Love</h1>
+        <h2>Factura de Servicios</h2>
+        
+        <div class="factura-datos">
+            <p><strong>Cliente:</strong> <?php echo $_SESSION['owner']; ?></p>
+            <p><strong>Mascota:</strong> <?php echo $_SESSION['pet_name']; ?></p>
+            <p><strong>Tipo de mascota:</strong> <?php echo $_SESSION['pet_type']; ?></p>
+        </div>
+
+        <div class="factura-detalles">
+            <table>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Costo base</td>
+                    <td>$<?php echo number_format($base, 0, ',', '.'); ?></td>
+                </tr>
+                <tr>
+                    <td>Costo total de servicios</td>
+                    <td>$<?php echo number_format($servicios_total, 0, ',', '.'); ?></td>
+                </tr>
+                <tr>
+                    <td>Descuento</td>
+                    <td>-$<?php echo number_format($descuento_total, 0, ',', '.'); ?></td>
+                </tr>
+                <tr>
+                    <td>IVA (19%)</td>
+                    <td>$<?php echo number_format($iva, 0, ',', '.'); ?></td>
+                </tr>
+                <tr class="total">
+                    <td><strong>Total a pagar</strong></td>
+                    <td><strong>$<?php echo number_format($total, 0, ',', '.'); ?></strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <button onclick="window.print()">Imprimir Factura</button>
+    </div>
 </body>
 </html>
